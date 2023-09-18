@@ -1,6 +1,8 @@
-﻿namespace Observer.Infrastructure.Repositories.Contracts
+﻿using Observer.Domain.Entities;
+
+namespace Observer.Infrastructure.Repositories.Contracts
 {
-    public interface ILevelRepository
+    public interface ILevelRepository : IGenericRepository<Level>
     {
     }
 }

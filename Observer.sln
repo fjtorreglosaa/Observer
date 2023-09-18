@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Observer.Application", "Obs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Observer.WebApi", "Observer.WebApi\Observer.WebApi.csproj", "{FF71DE97-3462-4E64-AE55-B863CC357AD0}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Observer.Sandbox", "Observer.Sandbox\Observer.Sandbox.csproj", "{197D91DB-C99E-434D-ACF5-71F91B8C9BBC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{FF71DE97-3462-4E64-AE55-B863CC357AD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF71DE97-3462-4E64-AE55-B863CC357AD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF71DE97-3462-4E64-AE55-B863CC357AD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{197D91DB-C99E-434D-ACF5-71F91B8C9BBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{197D91DB-C99E-434D-ACF5-71F91B8C9BBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{197D91DB-C99E-434D-ACF5-71F91B8C9BBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{197D91DB-C99E-434D-ACF5-71F91B8C9BBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

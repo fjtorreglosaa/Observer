@@ -1,6 +1,6 @@
-﻿namespace Observer.Domain.Models
+﻿namespace Observer.Domain.Entities
 {
-    public class StockAlert
+    public class StockAlert : Entity
     {
         public Guid? StockId { get; set; }
         public Stock? Stock { get; set; }

@@ -21,4 +21,8 @@
     <ProjectReference Include="..\Observer.Infrastructure\Observer.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Seeders\" />
+  </ItemGroup>
+
 </Project>

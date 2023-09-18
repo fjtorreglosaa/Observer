@@ -1,4 +1,4 @@
-﻿namespace Observer.Domain.Models
+﻿namespace Observer.Domain.Entities
 {
     public class Stock : Entity
     {
@@ -13,10 +13,10 @@
         public Guid? ItemId { get; set; }
         public Guid? PositionId { get; set; }
         public Position Position { get; set; }
-        public decimal? Quantity { get; set; }
-        public DateTime? LastDiscount { get; set; }
+        public int? Quantity { get; set; }
+        public DateTime? LastDiscounted { get; set; }
         public int? TimesDiscounted { get; set; }
-        public int? DiscountedItemsPerUpdate { get; set; }
+        public decimal? DiscountedItemsPerUpdateAvg { get; set; }
         public ICollection<StockAlert> StockAlerts { get; set; }
     }
 }

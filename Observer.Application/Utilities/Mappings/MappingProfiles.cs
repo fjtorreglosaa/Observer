@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Observer.Application.Utilities.DTOs.Warehouse;
-using Observer.Domain.Models;
+using Observer.Domain.Entities;
 
 namespace Observer.Application.Utilities.Mappings
 {

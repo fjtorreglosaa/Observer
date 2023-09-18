@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using Observer.Domain.Models;
+using Observer.Domain.Entities;
 using Observer.Infrastructure.Repositories.Contracts;
 using System.Data;
 

@@ -1,0 +1,173 @@
+CREATE TABLE public."Warehouses"
+(
+    "Id" uuid NOT NULL,
+    "CreatedDate" timestamp without time zone,
+    "LastModified" timestamp without time zone,
+    "CreatedBy" uuid,
+    "ModifiedBy" uuid,
+    "Name" character varying COLLATE pg_catalog."default",
+	"Description" character varying COLLATE pg_catalog."default",
+	"Identifier" character varying COLLATE pg_catalog."default",
+	"Active" boolean,
+    CONSTRAINT "Warehouses_pkey" PRIMARY KEY ("Id")
+)
+
+TABLESPACE pg_default;
+
+CREATE TABLE public."Aisles"
+(
+    "Id" uuid NOT NULL,
+    "CreatedDate" timestamp without time zone,
+    "LastModified" timestamp without time zone,
+    "CreatedBy" uuid,
+    "ModifiedBy" uuid,
+    "WarehouseId" uuid,
+    "Identifier" character varying COLLATE pg_catalog."default",
+    CONSTRAINT "Aisles_pkey" PRIMARY KEY ("Id")
+)
+
+TABLESPACE pg_default;
+
+CREATE TABLE public."Alerts"
+(
+    "Id" uuid NOT NULL,
+    "CreatedDate" timestamp without time zone,
+    "LastModified" timestamp without time zone,
+    "CreatedBy" uuid,
+    "ModifiedBy" uuid,
+    "Name" character varying COLLATE pg_catalog."default",
+	"Description" character varying COLLATE pg_catalog."default",
+	"Type" character varying COLLATE pg_catalog."default",
+    CONSTRAINT "Alerts_pkey" PRIMARY KEY ("Id")
+)
+
+TABLESPACE pg_default;
+
+CREATE TABLE public."Arrivals"
+(
+    "Id" uuid NOT NULL,
+    "CreatedDate" timestamp without time zone,
+    "LastModified" timestamp without time zone,
+    "CreatedBy" uuid,
+    "ModifiedBy" uuid,
+    "Type" character varying COLLATE pg_catalog."default",
+    "CompanyId" uuid,
+    "ItemId" uuid,
+    "BoxQuantity" integer,
+    "ItemsPerBox" integer,
+    "PalletQuantity" integer,
+    CONSTRAINT "Arrivals_pkey" PRIMARY KEY ("Id")
+)
+
+TABLESPACE pg_default;
+
+CREATE TABLE public."Bays"
+(
+    "Id" uuid NOT NULL,
+    "CreatedDate" timestamp without time zone,
+    "LastModified" timestamp without time zone,
+    "CreatedBy" uuid,
+    "ModifiedBy" uuid,
+    "Identifier" character varying COLLATE pg_catalog."default",
+    "AisleId" uuid,
+    CONSTRAINT "Bays_pkey" PRIMARY KEY ("Id")
+)
+
+TABLESPACE pg_default;
+
+CREATE TABLE public."Levels"
+(
+    "Id" uuid NOT NULL,
+    "CreatedDate" timestamp without time zone,
+    "LastModified" timestamp without time zone,
+    "CreatedBy" uuid,
+    "ModifiedBy" uuid,
+    "Identifier" character varying COLLATE pg_catalog."default",
+    "BayId" uuid,
+    CONSTRAINT "Levels_pkey" PRIMARY KEY ("Id")
+)
+
+TABLESPACE pg_default;
+
+CREATE TABLE public."Positions"
+(
+    "Id" uuid NOT NULL,
+    "CreatedDate" timestamp without time zone,
+    "LastModified" timestamp without time zone,
+    "CreatedBy" uuid,
+    "ModifiedBy" uuid,
+    "Identifier" character varying COLLATE pg_catalog."default",
+    "Height" numeric,
+    "Width" numeric,
+    "Depth" numeric,
+    "Type" character varying COLLATE pg_catalog."default",
+    "LevelId" uuid,
+    "StockId" uuid,
+    "BayId" uuid,
+    CONSTRAINT "Positions_pkey" PRIMARY KEY ("Id")
+)
+
+TABLESPACE pg_default;
+
+CREATE TABLE public."Stocks"
+(
+    "Id" uuid NOT NULL,
+    "CreatedDate" timestamp without time zone,
+    "LastModified" timestamp without time zone,
+    "CreatedBy" uuid,
+    "ModifiedBy" uuid,
+    "CompanyId" uuid,
+    "ArrivalId" uuid,
+    "ItemId" uuid,
+    "PositionId" uuid,
+    "Quantity" int,
+    "LastDiscounted" timestamp without time zone,
+    "TimesDiscounted" int,
+    "DiscountedItemsPerUpdateAvg" numeric,
+    CONSTRAINT "Stocks_pkey" PRIMARY KEY ("Id")
+)
+
+TABLESPACE pg_default;
+
+CREATE TABLE public."StockAlerts"
+(
+    "Id" uuid NOT NULL,
+    "CreatedDate" timestamp without time zone,
+    "LastModified" timestamp without time zone,
+    "CreatedBy" uuid,
+    "ModifiedBy" uuid,
+    "StockId" uuid,
+    "AlertId" uuid,
+    CONSTRAINT "StockAlerts_pkey" PRIMARY KEY ("Id")
+)
+
+TABLESPACE pg_default;
+
+CREATE TABLE public."StockWithdrawals"
+(
+    "Id" uuid NOT NULL,
+    "CreatedDate" timestamp without time zone,
+    "LastModified" timestamp without time zone,
+    "CreatedBy" uuid,
+    "ModifiedBy" uuid,
+    "StockId" uuid,
+    "WithdrawalId" uuid,
+    "Reason" character varying COLLATE pg_catalog."default",
+    CONSTRAINT "StockWithdrawals_pkey" PRIMARY KEY ("Id")
+)
+
+TABLESPACE pg_default;
+
+CREATE TABLE public."Withdrawals"
+(
+    "Id" uuid NOT NULL,
+    "CreatedDate" timestamp without time zone,
+    "LastModified" timestamp without time zone,
+    "CreatedBy" uuid,
+    "ModifiedBy" uuid,
+    "Type" character varying COLLATE pg_catalog."default",
+    "Description" character varying COLLATE pg_catalog."default",
+    CONSTRAINT "Withdrawals_pkey" PRIMARY KEY ("Id")
+)
+
+TABLESPACE pg_default;

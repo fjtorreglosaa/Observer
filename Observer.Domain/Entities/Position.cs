@@ -1,4 +1,4 @@
-﻿namespace Observer.Domain.Models
+﻿namespace Observer.Domain.Entities
 {
     public class Position : Entity
     {
@@ -7,7 +7,7 @@
             Stocks = new HashSet<Stock>();
         }
 
-        public string Identifier { get; set; }
+        public string? Identifier { get; set; }
         public decimal? Height { get; set; }
         public decimal? Width { get; set; }
         public decimal? Depth { get; set; }

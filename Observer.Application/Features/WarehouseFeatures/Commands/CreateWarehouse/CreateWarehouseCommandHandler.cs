@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Observer.Domain.Models;
+using Observer.Domain.Entities;
 using Observer.Infrastructure.UnitOfWork.Contracts;
 
 namespace Observer.Application.Features.WarehouseFeatures.Commands.CreateWarehouse

@@ -1,4 +1,4 @@
-﻿namespace Observer.Domain.Models
+﻿namespace Observer.Domain.Entities
 {
     public abstract class Entity
     {

@@ -1,8 +1,6 @@
-﻿using Microsoft.Data.SqlClient;
-using Npgsql;
+﻿using Npgsql;
 using Observer.Infrastructure.UnitOfWork.Contracts;
 using System.Data;
-using System.Data.Common;
 
 namespace Observer.Infrastructure.UnitOfWork
 {

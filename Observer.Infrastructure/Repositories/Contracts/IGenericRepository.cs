@@ -1,4 +1,4 @@
-﻿using Observer.Domain.Models;
+﻿using Observer.Domain.Entities;
 
 namespace Observer.Infrastructure.Repositories.Contracts
 {

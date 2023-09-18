@@ -1,9 +1,11 @@
-﻿namespace Observer.Domain.Models
+﻿namespace Observer.Domain.Entities
 {
     public class StockWithdrawal : Entity
     {
         public Guid? StockId { get; set; }
         public Stock? Stock { get; set; }
+        public Guid? WithdrawalId { get; set; }
+        public Withdrawal? Withdrawal { get; set; }
         public string? Reason { get; set; }
     }
 }
