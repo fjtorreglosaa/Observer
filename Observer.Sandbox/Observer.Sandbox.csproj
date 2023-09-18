@@ -22,7 +22,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Seeders\" />
+    <Folder Include="Seeders\Aisle\" />
+    <Folder Include="Seeders\Bay\" />
+    <Folder Include="Seeders\Level\" />
+    <Folder Include="Seeders\Alert\" />
+    <Folder Include="Seeders\Arrival\" />
+    <Folder Include="Seeders\StockArrival\" />
+    <Folder Include="Seeders\StockWithdrawal\" />
+    <Folder Include="Seeders\Withdrawal\" />
+    <Folder Include="Seeders\StockAlert\" />
+    <Folder Include="Seeders\Stock\" />
+    <Folder Include="Seeders\Position\" />
   </ItemGroup>
 
 </Project>

@@ -4,7 +4,7 @@
     {
         public Arrival()
         {
-            Stocks = new HashSet<Stock>();
+            StockArrivals = new HashSet<StockArrival>();
         }
 
         public string Type { get; set; }
@@ -13,6 +13,6 @@
         public int? BoxQuantity { get; set; }
         public int? ItemsPerBox { get; set; }
         public int? PalletQuantity { get; set; }
-        public ICollection<Stock> Stocks { get; set; }
+        public ICollection<StockArrival> StockArrivals { get; set; }
     }
 }

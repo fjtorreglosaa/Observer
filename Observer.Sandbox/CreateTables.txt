@@ -117,7 +117,6 @@ CREATE TABLE public."Stocks"
     "CreatedBy" uuid,
     "ModifiedBy" uuid,
     "CompanyId" uuid,
-    "ArrivalId" uuid,
     "ItemId" uuid,
     "PositionId" uuid,
     "Quantity" int,
@@ -139,6 +138,20 @@ CREATE TABLE public."StockAlerts"
     "StockId" uuid,
     "AlertId" uuid,
     CONSTRAINT "StockAlerts_pkey" PRIMARY KEY ("Id")
+)
+
+TABLESPACE pg_default;
+
+CREATE TABLE public."StockArrivals"
+(
+    "Id" uuid NOT NULL,
+    "CreatedDate" timestamp without time zone,
+    "LastModified" timestamp without time zone,
+    "CreatedBy" uuid,
+    "ModifiedBy" uuid,
+    "StockId" uuid,
+    "ArrivalId" uuid,
+    CONSTRAINT "StockArrivals_pkey" PRIMARY KEY ("Id")
 )
 
 TABLESPACE pg_default;
