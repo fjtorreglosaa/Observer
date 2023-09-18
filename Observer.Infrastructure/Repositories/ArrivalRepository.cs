@@ -27,11 +27,7 @@ namespace Observer.Infrastructure.Repositories
                             ""CreatedBy"", 
                             ""ModifiedBy"", 
                             ""Type"", 
-                            ""CompanyId"", 
-                            ""ItemId"", 
-                            ""BoxQuantity"", 
-                            ""ItemsPerBox"", 
-                            ""PalletQuantity""
+                            ""CompanyId""
                         ) 
                         VALUES 
                         (
@@ -41,11 +37,7 @@ namespace Observer.Infrastructure.Repositories
                             @CreatedBy, 
                             @ModifiedBy, 
                             @Type, 
-                            @CompanyId, 
-                            @ItemId, 
-                            @BoxQuantity, 
-                            @ItemsPerBox, 
-                            @PalletQuantity
+                            @CompanyId
                         )"
             ;
 
@@ -82,13 +74,8 @@ namespace Observer.Infrastructure.Repositories
                         ""LastModified"" = @LastModified, 
                         ""ModifiedBy"" = @ModifiedBy, 
                         ""Type"" = @Type, 
-                        ""CompanyId"" = @CompanyId, 
-                        ""ItemId"" = @ItemId, 
-                        ""BoxQuantity"" = @BoxQuantity, 
-                        ""ItemsPerBox"" = @ItemsPerBox, 
-                        ""PalletQuantity"" = @PalletQuantity 
+                        ""CompanyId"" = @CompanyId
                      WHERE ""Id"" = @Id";
-
             var result = await _sqlConnection.ExecuteAsync(sql, entity, _transaction);
             return result;
         }

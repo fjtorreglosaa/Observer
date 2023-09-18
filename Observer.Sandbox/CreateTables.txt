@@ -52,10 +52,6 @@ CREATE TABLE public."Arrivals"
     "ModifiedBy" uuid,
     "Type" character varying COLLATE pg_catalog."default",
     "CompanyId" uuid,
-    "ItemId" uuid,
-    "BoxQuantity" integer,
-    "ItemsPerBox" integer,
-    "PalletQuantity" integer,
     CONSTRAINT "Arrivals_pkey" PRIMARY KEY ("Id")
 )
 
@@ -151,6 +147,10 @@ CREATE TABLE public."StockArrivals"
     "ModifiedBy" uuid,
     "StockId" uuid,
     "ArrivalId" uuid,
+    "ItemId" uuid,
+    "BoxQuantity" integer,
+    "ItemsPerBox" integer,
+    "PalletQuantity" integer,
     CONSTRAINT "StockArrivals_pkey" PRIMARY KEY ("Id")
 )
 

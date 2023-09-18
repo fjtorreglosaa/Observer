@@ -27,7 +27,11 @@ namespace Observer.Infrastructure.Repositories
                             ""CreatedBy"", 
                             ""ModifiedBy"", 
                             ""StockId"", 
-                            ""ArrivalId""
+                            ""ArrivalId"",
+                            ""ItemId"", 
+                            ""BoxQuantity"", 
+                            ""ItemsPerBox"", 
+                            ""PalletQuantity""
                         ) 
                         VALUES 
                         (
@@ -38,6 +42,10 @@ namespace Observer.Infrastructure.Repositories
                             @ModifiedBy, 
                             @StockId, 
                             @ArrivalId, 
+                            @ItemId, 
+                            @BoxQuantity, 
+                            @ItemsPerBox, 
+                            @PalletQuantity
                         )"
             ;
 
@@ -74,6 +82,10 @@ namespace Observer.Infrastructure.Repositories
                         ""ModifiedBy"" = @ModifiedBy, 
                         ""StockId"" = @StockId, 
                         ""ArrivalId"" = @ArrivalId, 
+                        ""ItemId"" = @ItemId, 
+                        ""BoxQuantity"" = @BoxQuantity, 
+                        ""ItemsPerBox"" = @ItemsPerBox, 
+                        ""PalletQuantity"" = @PalletQuantity  
                      WHERE ""Id"" = @Id";
             var result = await _sqlConnection.ExecuteAsync(sql, entity, _transaction);
             return result;
