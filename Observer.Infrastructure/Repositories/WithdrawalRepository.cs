@@ -1,33 +1,56 @@
-﻿using Observer.Domain.Entities;
+﻿using Dapper;
+using Observer.Domain.Entities;
 using Observer.Infrastructure.Repositories.Contracts;
+using System.Data;
 
 namespace Observer.Infrastructure.Repositories
 {
     public class WithdrawalRepository : IWithdrawalRepository
     {
-        public Task<int> AddAsync(Withdrawal entity)
-        {
-            throw new NotImplementedException();
-        }
+        private readonly IDbTransaction _transaction;
+        private readonly IDbConnection _sqlConnection;
 
-        public Task<int> DeleteAsync(Guid id)
+        public WithdrawalRepository(IDbConnection sqlConnection, IDbTransaction transaction)
         {
-            throw new NotImplementedException();
+            _transaction = transaction;
+            _sqlConnection = sqlConnection;
         }
-
-        public Task<IReadOnlyList<Withdrawal>> GetAllAsync()
+        public async Task<int> AddAsync(Withdrawal entity)
         {
-            throw new NotImplementedException();
+            entity.CreatedDate = DateTime.Now;
+            var sql = @"INSERT INTO ""Warehouses"" (""Id"", ""CreatedDate"", ""LastModified"", ""CreatedBy"", ""ModifiedBy"", ""Name"", ""Description"", ""Identifier"") 
+                        VALUES (@Id, @CreatedDate, @LastModified, @CreatedBy, @ModifiedBy, @Name, @Description, @Identifier)"
+            ;
+
+            var result = await _sqlConnection.ExecuteAsync(sql, entity, _transaction);
+            return result;
         }
-
-        public Task<Withdrawal> GetByIdAsync(Guid id)
+        public async Task<int> DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var sql = @"DELETE FROM ""Warehouses"" WHERE ""Id"" = @Id";
+            var result = await _sqlConnection.ExecuteAsync(sql, new { Id = id }, _transaction);
+            return result;
         }
-
-        public Task<int> UpdateAsync(Withdrawal entity)
+        public async Task<IReadOnlyList<Withdrawal>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var sql = @"SELECT * FROM ""Warehouses""";
+            var result = await _sqlConnection.QueryAsync<Withdrawal>(sql);
+            return result.ToList();
+        }
+        public async Task<Withdrawal> GetByIdAsync(Guid id)
+        {
+            var sql = @"SELECT * FROM ""Warehouses"" WHERE ""Id"" = @Id";
+            var result = await _sqlConnection.QuerySingleOrDefaultAsync<Withdrawal>(sql, new { Id = id }, _transaction);
+            return result;
+        }
+        public async Task<int> UpdateAsync(Withdrawal entity)
+        {
+            entity.LastModified = DateTime.Now;
+            var sql = @"UPDATE ""Warehouses"" 
+                     SET ""LastModified"" = @LastModified, ""ModifiedBy"" = @ModifiedBy, ""Name"" = @Name, ""Description"" = @Description, ""Identifier"" = @Identifier 
+                     WHERE ""Id"" = @Id";
+            var result = await _sqlConnection.ExecuteAsync(sql, entity, _transaction);
+            return result;
         }
     }
 }
