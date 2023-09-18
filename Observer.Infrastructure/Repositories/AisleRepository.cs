@@ -15,39 +15,44 @@ namespace Observer.Infrastructure.Repositories
             _transaction = transaction;
             _sqlConnection = sqlConnection;
         }
+
         public async Task<int> AddAsync(Aisle entity)
         {
             entity.CreatedDate = DateTime.Now;
-            var sql = @"INSERT INTO ""Warehouses"" (""Id"", ""CreatedDate"", ""LastModified"", ""CreatedBy"", ""ModifiedBy"", ""Name"", ""Description"", ""Identifier"") 
-                        VALUES (@Id, @CreatedDate, @LastModified, @CreatedBy, @ModifiedBy, @Name, @Description, @Identifier)"
+            var sql = @"INSERT INTO ""Aisles"" (""Id"", ""CreatedDate"", ""LastModified"", ""CreatedBy"", ""ModifiedBy"", ""WarehouseId"", ""Identifier"") 
+                        VALUES (@Id, @CreatedDate, @LastModified, @CreatedBy, @ModifiedBy, @WarehouseId, @Identifier)"
             ;
 
             var result = await _sqlConnection.ExecuteAsync(sql, entity, _transaction);
             return result;
         }
+
         public async Task<int> DeleteAsync(Guid id)
         {
-            var sql = @"DELETE FROM ""Warehouses"" WHERE ""Id"" = @Id";
+            var sql = @"DELETE FROM ""Aisles"" WHERE ""Id"" = @Id";
             var result = await _sqlConnection.ExecuteAsync(sql, new { Id = id }, _transaction);
             return result;
         }
+
         public async Task<IReadOnlyList<Aisle>> GetAllAsync()
         {
-            var sql = @"SELECT * FROM ""Warehouses""";
+            var sql = @"SELECT * FROM ""Aisles""";
             var result = await _sqlConnection.QueryAsync<Aisle>(sql);
             return result.ToList();
         }
+
         public async Task<Aisle> GetByIdAsync(Guid id)
         {
-            var sql = @"SELECT * FROM ""Warehouses"" WHERE ""Id"" = @Id";
+            var sql = @"SELECT * FROM ""Aisles"" WHERE ""Id"" = @Id";
             var result = await _sqlConnection.QuerySingleOrDefaultAsync<Aisle>(sql, new { Id = id }, _transaction);
             return result;
         }
+
         public async Task<int> UpdateAsync(Aisle entity)
         {
             entity.LastModified = DateTime.Now;
-            var sql = @"UPDATE ""Warehouses"" 
-                     SET ""LastModified"" = @LastModified, ""ModifiedBy"" = @ModifiedBy, ""Name"" = @Name, ""Description"" = @Description, ""Identifier"" = @Identifier 
+            var sql = @"UPDATE ""Aisles"" 
+                     SET ""LastModified"" = @LastModified, ""ModifiedBy"" = @ModifiedBy, ""WarehouseId"" = @WarehouseId, ""Identifier"" = @Identifier 
                      WHERE ""Id"" = @Id";
             var result = await _sqlConnection.ExecuteAsync(sql, entity, _transaction);
             return result;

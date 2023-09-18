@@ -15,39 +15,83 @@ namespace Observer.Infrastructure.Repositories
             _transaction = transaction;
             _sqlConnection = sqlConnection;
         }
+
         public async Task<int> AddAsync(Stock entity)
         {
             entity.CreatedDate = DateTime.Now;
-            var sql = @"INSERT INTO ""Warehouses"" (""Id"", ""CreatedDate"", ""LastModified"", ""CreatedBy"", ""ModifiedBy"", ""Name"", ""Description"", ""Identifier"") 
-                        VALUES (@Id, @CreatedDate, @LastModified, @CreatedBy, @ModifiedBy, @Name, @Description, @Identifier)"
+            var sql = @"INSERT INTO ""Stocks"" 
+                        (
+                            ""Id"", 
+                            ""CreatedDate"", 
+                            ""LastModified"", 
+                            ""CreatedBy"", 
+                            ""ModifiedBy"", 
+                            ""CompanyId"", 
+                            ""ArrivalId"", 
+                            ""ItemId"", 
+                            ""PositionId"", 
+                            ""Quantity"", 
+                            ""LastDiscounted"", 
+                            ""TimesDiscounted"", 
+                            ""DiscountedItemsPerUpdateAvg""
+                        ) 
+                        VALUES 
+                        (
+                            @Id, 
+                            @CreatedDate, 
+                            @LastModified, 
+                            @CreatedBy, 
+                            @ModifiedBy, 
+                            @CompanyId, 
+                            @ArrivalId, 
+                            @ItemId, 
+                            @PositionId, 
+                            @Quantity, 
+                            @LastDiscounted, 
+                            @TimesDiscounted, 
+                            @DiscountedItemsPerUpdateAvg
+                        )"
             ;
 
             var result = await _sqlConnection.ExecuteAsync(sql, entity, _transaction);
             return result;
         }
+
         public async Task<int> DeleteAsync(Guid id)
         {
-            var sql = @"DELETE FROM ""Warehouses"" WHERE ""Id"" = @Id";
+            var sql = @"DELETE FROM ""Stocks"" WHERE ""Id"" = @Id";
             var result = await _sqlConnection.ExecuteAsync(sql, new { Id = id }, _transaction);
             return result;
         }
+
         public async Task<IReadOnlyList<Stock>> GetAllAsync()
         {
-            var sql = @"SELECT * FROM ""Warehouses""";
+            var sql = @"SELECT * FROM ""Stocks""";
             var result = await _sqlConnection.QueryAsync<Stock>(sql);
             return result.ToList();
         }
+
         public async Task<Stock> GetByIdAsync(Guid id)
         {
-            var sql = @"SELECT * FROM ""Warehouses"" WHERE ""Id"" = @Id";
+            var sql = @"SELECT * FROM ""Stocks"" WHERE ""Id"" = @Id";
             var result = await _sqlConnection.QuerySingleOrDefaultAsync<Stock>(sql, new { Id = id }, _transaction);
             return result;
         }
+
         public async Task<int> UpdateAsync(Stock entity)
         {
             entity.LastModified = DateTime.Now;
-            var sql = @"UPDATE ""Warehouses"" 
-                     SET ""LastModified"" = @LastModified, ""ModifiedBy"" = @ModifiedBy, ""Name"" = @Name, ""Description"" = @Description, ""Identifier"" = @Identifier 
+            var sql = @"UPDATE ""Stocks"" SET 
+                        ""LastModified"" = @LastModified, 
+                        ""ModifiedBy"" = @ModifiedBy, 
+                        ""CompanyId"" = @CompanyId, 
+                        ""ArrivalId"" = @ArrivalId, 
+                        ""ItemId"" = @ItemId, 
+                        ""PositionId"" = @PositionId, 
+                        ""Quantity"" = @Quantity, 
+                        ""LastDiscounted"" = @LastDiscounted, 
+                        ""TimesDiscounted"" = @TimesDiscounted, 
+                        ""DiscountedItemsPerUpdateAvg"" = @DiscountedItemsPerUpdateAvg 
                      WHERE ""Id"" = @Id";
             var result = await _sqlConnection.ExecuteAsync(sql, entity, _transaction);
             return result;
