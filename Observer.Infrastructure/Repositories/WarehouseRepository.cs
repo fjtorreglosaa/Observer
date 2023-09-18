@@ -29,21 +29,21 @@ namespace Observer.Infrastructure.Repositories
 
         public async Task<int> DeleteAsync(Guid id)
         {
-            var sql = "DELETE FROM Warehouses WHERE Id = @Id";
+            var sql = @"DELETE FROM ""Warehouses"" WHERE ""Id"" = @Id";
             var result = await _sqlConnection.ExecuteAsync(sql, new { Id = id }, _transaction);
             return result;
         }
 
         public async Task<IReadOnlyList<Warehouse>> GetAllAsync()
         {
-            var sql = "SELECT * FROM Warehouses";
+            var sql = @"SELECT * FROM ""Warehouses""";
             var result = await _sqlConnection.QueryAsync<Warehouse>(sql);
             return result.ToList();
         }
 
         public async Task<Warehouse> GetByIdAsync(Guid id)
         {
-            var sql = "SELECT * FROM Warehouses WHERE Id = @Id";
+            var sql = @"SELECT * FROM ""Warehouses"" WHERE ""Id"" = @Id";
             var result = await _sqlConnection.QuerySingleOrDefaultAsync<Warehouse>(sql, new { Id = id }, _transaction);
             return result;
         }
@@ -51,8 +51,8 @@ namespace Observer.Infrastructure.Repositories
         public async Task<int> UpdateAsync(Warehouse entity)
         {
             entity.LastModified = DateTime.Now;
-            var sql = @"UPDATE Warehouses 
-                     SET LastModified = @LastModified, ModifiedBy = @ModifiedBy, Name = @Name, Description = @Description, Identifier = @Identifier 
+            var sql = @"UPDATE ""Warehouses"" 
+                     SET ""LastModified"" = @LastModified, ""ModifiedBy"" = @ModifiedBy, ""Name"" = @Name, ""Description"" = @Description, ""Identifier"" = @Identifier 
                      WHERE Id = @Id";
             var result = await _sqlConnection.ExecuteAsync(sql, entity, _transaction);
             return result;
