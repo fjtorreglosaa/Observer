@@ -1,6 +1,6 @@
 ﻿namespace Observer.Infrastructure.UnitOfWork.Contracts
 {
-    public interface IUnitOfWorkAdapter
+    public interface IUnitOfWorkAdapter : IDisposable
     {
         IUnitOfWorkRepository Repositories { get; }
         void Commit();

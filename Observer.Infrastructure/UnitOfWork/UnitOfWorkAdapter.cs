@@ -1,10 +1,12 @@
 ﻿using Microsoft.Data.SqlClient;
+using Npgsql;
 using Observer.Infrastructure.UnitOfWork.Contracts;
 using System.Data;
+using System.Data.Common;
 
 namespace Observer.Infrastructure.UnitOfWork
 {
-    public class UnitOfWorkAdapter : IUnitOfWorkAdapter, IDisposable
+    public class UnitOfWorkAdapter : IUnitOfWorkAdapter
     {
         private IDbConnection _connection;
         private IDbTransaction _transaction;
@@ -17,7 +19,7 @@ namespace Observer.Infrastructure.UnitOfWork
 
         private void Initialize(string connectionString)
         {
-            _connection = new SqlConnection(connectionString);
+            _connection = new NpgsqlConnection(connectionString);
             _connection.Open();
             _transaction = _connection.BeginTransaction();
 

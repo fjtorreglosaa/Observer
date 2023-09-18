@@ -14,7 +14,7 @@ namespace Observer.Infrastructure.UnitOfWork
 
         public IUnitOfWorkAdapter Create(string connectionString = null)
         {
-            if (string.IsNullOrEmpty(connectionString)) connectionString = _configuration.GetConnectionString("CommonDB"); 
+            if (string.IsNullOrEmpty(connectionString)) connectionString = _configuration.GetConnectionString("ObserverDB"); 
 
             return new UnitOfWorkAdapter(connectionString);
         }

@@ -18,7 +18,7 @@ namespace Observer.Infrastructure.Repositories
         public async Task<int> AddAsync(Warehouse entity)
         {
             entity.CreatedDate = DateTime.Now;
-            var sql = @"INSERT INTO Warehouses (Id, CreatedDate, LastModified, CreatedBy, ModifiedBy, Name, Description, Identifier) 
+            var sql = @"INSERT INTO ""Warehouses"" (""Id"", ""CreatedDate"", ""LastModified"", ""CreatedBy"", ""ModifiedBy"", ""Name"", ""Description"", ""Identifier"") 
                         VALUES (@Id, @CreatedDate, @LastModified, @CreatedBy, @ModifiedBy, @Name, @Description, @Identifier)"
             ;
 
@@ -33,7 +33,7 @@ namespace Observer.Infrastructure.Repositories
         }
         public async Task<IReadOnlyList<Warehouse>> GetAllAsync()
         {
-            var sql = "SELECT * FROM Warehouses";
+            var sql = @"SELECT * FROM ""Warehouses""";
             var result = await _sqlConnection.QueryAsync<Warehouse>(sql);
             return result.ToList();
         }
