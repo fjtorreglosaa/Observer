@@ -11,11 +11,14 @@
         public decimal? Height { get; set; }
         public decimal? Width { get; set; }
         public decimal? Depth { get; set; }
+        public decimal? MaxCapacity { get; set; }
         public string? Type { get; set; }
+        public bool? Empty { get; set; }
+        public bool? Reserved { get; set; }
+        public bool? Active { get; set; }
+        public DateTime? DateReserved { get; set; }
         public Guid? LevelId { get; set; }
         public Level? Level { get; set; }
-        public Guid? StockId { get; set; }
-        public Stock? Stock { get; set; }
         public ICollection<Stock> Stocks { get; set; }
     }
 }

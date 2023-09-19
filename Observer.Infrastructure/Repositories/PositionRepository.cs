@@ -8,12 +8,12 @@ namespace Observer.Infrastructure.Repositories
     public class PositionRepository : IPositionRepository
     {
         private readonly IDbTransaction _transaction;
-        private readonly IDbConnection _sqlConnection;
+        private readonly IDbConnection _connection;
 
-        public PositionRepository(IDbConnection sqlConnection, IDbTransaction transaction)
+        public PositionRepository(IDbConnection connection, IDbTransaction transaction)
         {
             _transaction = transaction;
-            _sqlConnection = sqlConnection;
+            _connection = connection;
         }
 
         public async Task<int> AddAsync(Position entity)
@@ -31,10 +31,13 @@ namespace Observer.Infrastructure.Repositories
                             ""Height"", 
                             ""Width"", 
                             ""Depth"", 
+                            ""MaxCapacity"", 
                             ""Type"", 
                             ""LevelId"", 
-                            ""StockId"", 
-                            ""BayId""
+                            ""Empty"",
+                            ""Reserved"",
+                            ""Active"",
+                            ""DateReserved""
                         ) 
                         VALUES 
                         (
@@ -47,35 +50,38 @@ namespace Observer.Infrastructure.Repositories
                             @Height, 
                             @Width, 
                             @Depth, 
+                            @MaxCapacity, 
                             @Type, 
                             @LevelId, 
-                            @StockId, 
-                            @BayId
+                            @Empty,
+                            @Reserved,
+                            @Active,
+                            @DateReserved
                         )"
             ;
 
-            var result = await _sqlConnection.ExecuteAsync(sql, entity, _transaction);
+            var result = await _connection.ExecuteAsync(sql, entity, _transaction);
             return result;
         }
 
         public async Task<int> DeleteAsync(Guid id)
         {
             var sql = @"DELETE FROM ""Positions"" WHERE ""Id"" = @Id";
-            var result = await _sqlConnection.ExecuteAsync(sql, new { Id = id }, _transaction);
+            var result = await _connection.ExecuteAsync(sql, new { Id = id }, _transaction);
             return result;
         }
 
         public async Task<IReadOnlyList<Position>> GetAllAsync()
         {
             var sql = @"SELECT * FROM ""Positions""";
-            var result = await _sqlConnection.QueryAsync<Position>(sql);
+            var result = await _connection.QueryAsync<Position>(sql);
             return result.ToList();
         }
 
         public async Task<Position> GetByIdAsync(Guid id)
         {
             var sql = @"SELECT * FROM ""Positions"" WHERE ""Id"" = @Id";
-            var result = await _sqlConnection.QuerySingleOrDefaultAsync<Position>(sql, new { Id = id }, _transaction);
+            var result = await _connection.QuerySingleOrDefaultAsync<Position>(sql, new { Id = id }, _transaction);
             return result;
         }
 
@@ -91,13 +97,16 @@ namespace Observer.Infrastructure.Repositories
                         ""Height"" = @Height, 
                         ""Width"" = @Width, 
                         ""Depth"" = @Depth, 
+                        ""MaxCapacity"" = @MaxCapacity, 
                         ""Type"" = @Type, 
                         ""LevelId"" = @LevelId, 
-                        ""StockId"" = @StockId, 
-                        ""BayId"" = @BayId 
+                        ""Empty"" = @Empty, 
+                        ""Reserved"" = @Reserved, 
+                        ""Active"" = @Active, 
+                        ""DateReserved"" = @DateReserved 
                      WHERE ""Id"" = @Id";
 
-            var result = await _sqlConnection.ExecuteAsync(sql, entity, _transaction);
+            var result = await _connection.ExecuteAsync(sql, entity, _transaction);
             return result;
         }
     }

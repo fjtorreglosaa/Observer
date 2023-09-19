@@ -1,4 +1,4 @@
-CREATE TABLE public."Warehouses"
+CREATE TABLE "Warehouses"
 (
     "Id" uuid NOT NULL,
     "CreatedDate" timestamp without time zone,
@@ -14,7 +14,7 @@ CREATE TABLE public."Warehouses"
 
 TABLESPACE pg_default;
 
-CREATE TABLE public."Aisles"
+CREATE TABLE "Aisles"
 (
     "Id" uuid NOT NULL,
     "CreatedDate" timestamp without time zone,
@@ -28,7 +28,7 @@ CREATE TABLE public."Aisles"
 
 TABLESPACE pg_default;
 
-CREATE TABLE public."Alerts"
+CREATE TABLE "Alerts"
 (
     "Id" uuid NOT NULL,
     "CreatedDate" timestamp without time zone,
@@ -43,7 +43,7 @@ CREATE TABLE public."Alerts"
 
 TABLESPACE pg_default;
 
-CREATE TABLE public."Arrivals"
+CREATE TABLE "Arrivals"
 (
     "Id" uuid NOT NULL,
     "CreatedDate" timestamp without time zone,
@@ -51,13 +51,14 @@ CREATE TABLE public."Arrivals"
     "CreatedBy" uuid,
     "ModifiedBy" uuid,
     "Type" character varying COLLATE pg_catalog."default",
-    "CompanyId" uuid,
+    "StoreId" uuid,
+    "SupplierId" uuid,
     CONSTRAINT "Arrivals_pkey" PRIMARY KEY ("Id")
 )
 
 TABLESPACE pg_default;
 
-CREATE TABLE public."Bays"
+CREATE TABLE "Bays"
 (
     "Id" uuid NOT NULL,
     "CreatedDate" timestamp without time zone,
@@ -71,7 +72,7 @@ CREATE TABLE public."Bays"
 
 TABLESPACE pg_default;
 
-CREATE TABLE public."Levels"
+CREATE TABLE "Levels"
 (
     "Id" uuid NOT NULL,
     "CreatedDate" timestamp without time zone,
@@ -85,7 +86,7 @@ CREATE TABLE public."Levels"
 
 TABLESPACE pg_default;
 
-CREATE TABLE public."Positions"
+CREATE TABLE "Positions"
 (
     "Id" uuid NOT NULL,
     "CreatedDate" timestamp without time zone,
@@ -96,25 +97,28 @@ CREATE TABLE public."Positions"
     "Height" numeric,
     "Width" numeric,
     "Depth" numeric,
+    "MaxCapacity" numeric,
     "Type" character varying COLLATE pg_catalog."default",
     "LevelId" uuid,
-    "StockId" uuid,
-    "BayId" uuid,
+    "Empty" bool,
+    "Reserved" bool,
+    "Active" bool,
+    "DateReserved" timestamp without time zone,
     CONSTRAINT "Positions_pkey" PRIMARY KEY ("Id")
 )
 
 TABLESPACE pg_default;
 
-CREATE TABLE public."Stocks"
+CREATE TABLE "Stocks"
 (
     "Id" uuid NOT NULL,
     "CreatedDate" timestamp without time zone,
     "LastModified" timestamp without time zone,
     "CreatedBy" uuid,
     "ModifiedBy" uuid,
-    "CompanyId" uuid,
+    "Name" character varying COLLATE pg_catalog."default",
+    "StoreId" uuid,
     "ItemId" uuid,
-    "PositionId" uuid,
     "Quantity" int,
     "LastDiscounted" timestamp without time zone,
     "TimesDiscounted" int,
@@ -124,7 +128,7 @@ CREATE TABLE public."Stocks"
 
 TABLESPACE pg_default;
 
-CREATE TABLE public."StockAlerts"
+CREATE TABLE "StockAlerts"
 (
     "Id" uuid NOT NULL,
     "CreatedDate" timestamp without time zone,
@@ -138,7 +142,7 @@ CREATE TABLE public."StockAlerts"
 
 TABLESPACE pg_default;
 
-CREATE TABLE public."StockArrivals"
+CREATE TABLE "StockArrivals"
 (
     "Id" uuid NOT NULL,
     "CreatedDate" timestamp without time zone,
@@ -150,19 +154,34 @@ CREATE TABLE public."StockArrivals"
     "ItemId" uuid,
     "BoxQuantity" integer,
     "ItemsPerBox" integer,
-    "PalletQuantity" integer,
+    "IsPalletArrival" bool,
     CONSTRAINT "StockArrivals_pkey" PRIMARY KEY ("Id")
 )
 
 TABLESPACE pg_default;
 
-CREATE TABLE public."StockWithdrawals"
+CREATE TABLE "StockPositions"
 (
     "Id" uuid NOT NULL,
     "CreatedDate" timestamp without time zone,
     "LastModified" timestamp without time zone,
     "CreatedBy" uuid,
     "ModifiedBy" uuid,
+    "StockId" uuid,
+    "PositionId" uuid,
+    CONSTRAINT "StockPositions_pkey" PRIMARY KEY ("Id")
+)
+
+TABLESPACE pg_default;
+
+CREATE TABLE "StockWithdrawals"
+(
+    "Id" uuid NOT NULL,
+    "CreatedDate" timestamp without time zone,
+    "LastModified" timestamp without time zone,
+    "CreatedBy" uuid,
+    "ModifiedBy" uuid,
+    "StockCount" integer,
     "StockId" uuid,
     "WithdrawalId" uuid,
     "Reason" character varying COLLATE pg_catalog."default",
@@ -171,7 +190,21 @@ CREATE TABLE public."StockWithdrawals"
 
 TABLESPACE pg_default;
 
-CREATE TABLE public."Withdrawals"
+CREATE TABLE "StockWithdrawalSources"
+(
+    "Id" uuid NOT NULL,
+    "CreatedDate" timestamp without time zone,
+    "LastModified" timestamp without time zone,
+    "CreatedBy" uuid,
+    "ModifiedBy" uuid,
+    "StockWithdrawalId" uuid,
+    "PositionId" uuid,
+    CONSTRAINT "StockWithdrawalSources_pkey" PRIMARY KEY ("Id")
+)
+
+TABLESPACE pg_default;
+
+CREATE TABLE "Withdrawals"
 (
     "Id" uuid NOT NULL,
     "CreatedDate" timestamp without time zone,

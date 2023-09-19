@@ -5,31 +5,29 @@ using System.Data;
 
 namespace Observer.Infrastructure.Repositories
 {
-    public class WarehouseRepository : IWarehouseRepository
+    public class StockWithdrawalSourceRepository : IStockWithdrawalSourceRepository
     {
         private readonly IDbTransaction _transaction;
         private readonly IDbConnection _connection;
 
-        public WarehouseRepository(IDbConnection connection, IDbTransaction transaction)
+        public StockWithdrawalSourceRepository(IDbConnection connection, IDbTransaction transaction)
         {
             _transaction = transaction;
             _connection = connection;
         }
 
-        public async Task<int> AddAsync(Warehouse entity)
+        public async Task<int> AddAsync(StockWithdrawalSource entity)
         {
             entity.CreatedDate = DateTime.Now;
-            var sql = @"INSERT INTO ""Warehouses"" 
+            var sql = @"INSERT INTO ""StockWithdrawalSources"" 
                         (
                             ""Id"", 
                             ""CreatedDate"", 
                             ""LastModified"", 
                             ""CreatedBy"", 
                             ""ModifiedBy"", 
-                            ""Name"", 
-                            ""Description"", 
-                            ""Identifier"", 
-                            ""Active""
+                            ""StockWithdrawalId"", 
+                            ""PositionId""
                         ) 
                         VALUES 
                         (
@@ -38,10 +36,8 @@ namespace Observer.Infrastructure.Repositories
                             @LastModified, 
                             @CreatedBy, 
                             @ModifiedBy, 
-                            @Name, 
-                            @Description, 
-                            @Identifier, 
-                            @Active
+                            @StockWithdrawalId, 
+                            @PositionId
                         )"
             ;
 
@@ -51,36 +47,34 @@ namespace Observer.Infrastructure.Repositories
 
         public async Task<int> DeleteAsync(Guid id)
         {
-            var sql = @"DELETE FROM ""Warehouses"" WHERE ""Id"" = @Id";
+            var sql = @"DELETE FROM ""StockWithdrawalSources"" WHERE ""Id"" = @Id";
             var result = await _connection.ExecuteAsync(sql, new { Id = id }, _transaction);
             return result;
         }
 
-        public async Task<IReadOnlyList<Warehouse>> GetAllAsync()
+        public async Task<IReadOnlyList<StockWithdrawalSource>> GetAllAsync()
         {
-            var sql = @"SELECT * FROM ""Warehouses""";
-            var result = await _connection.QueryAsync<Warehouse>(sql);
+            var sql = @"SELECT * FROM ""StockWithdrawalSources""";
+            var result = await _connection.QueryAsync<StockWithdrawalSource>(sql);
             return result.ToList();
         }
 
-        public async Task<Warehouse> GetByIdAsync(Guid id)
+        public async Task<StockWithdrawalSource> GetByIdAsync(Guid id)
         {
-            var sql = @"SELECT * FROM ""Warehouses"" WHERE ""Id"" = @Id";
-            var result = await _connection.QuerySingleOrDefaultAsync<Warehouse>(sql, new { Id = id }, _transaction);
+            var sql = @"SELECT * FROM ""StockWithdrawalSources"" WHERE ""Id"" = @Id";
+            var result = await _connection.QuerySingleOrDefaultAsync<StockWithdrawalSource>(sql, new { Id = id }, _transaction);
             return result;
         }
 
-        public async Task<int> UpdateAsync(Warehouse entity)
+        public async Task<int> UpdateAsync(StockWithdrawalSource entity)
         {
             entity.LastModified = DateTime.Now;
-            var sql = @"UPDATE ""Warehouses"" SET 
+            var sql = @"UPDATE ""StockWithdrawalSources"" SET 
                         ""LastModified"" = @LastModified, 
                         ""ModifiedBy"" = @ModifiedBy, 
-                        ""Name"" = @Name, 
-                        ""Description"" = @Description, 
-                        ""Identifier"" = @Identifier,  
-                        ""Active"" = @Active 
-                     WHERE Id = @Id";
+                        ""StockWithdrawalId"" = @StockWithdrawalId, 
+                        ""PositionId"" = @PositionId
+                     WHERE ""Id"" = @Id";
             var result = await _connection.ExecuteAsync(sql, entity, _transaction);
             return result;
         }

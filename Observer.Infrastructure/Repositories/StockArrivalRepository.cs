@@ -8,12 +8,12 @@ namespace Observer.Infrastructure.Repositories
     public class StockArrivalRepository : IStockArrivalRepository
     {
         private readonly IDbTransaction _transaction;
-        private readonly IDbConnection _sqlConnection;
+        private readonly IDbConnection _connection;
 
-        public StockArrivalRepository(IDbConnection sqlConnection, IDbTransaction transaction)
+        public StockArrivalRepository(IDbConnection connection, IDbTransaction transaction)
         {
             _transaction = transaction;
-            _sqlConnection = sqlConnection;
+            _connection = connection;
         }
 
         public async Task<int> AddAsync(StockArrival entity)
@@ -31,7 +31,7 @@ namespace Observer.Infrastructure.Repositories
                             ""ItemId"", 
                             ""BoxQuantity"", 
                             ""ItemsPerBox"", 
-                            ""PalletQuantity""
+                            ""IsPalletArrival""
                         ) 
                         VALUES 
                         (
@@ -45,32 +45,32 @@ namespace Observer.Infrastructure.Repositories
                             @ItemId, 
                             @BoxQuantity, 
                             @ItemsPerBox, 
-                            @PalletQuantity
+                            @IsPalletArrival
                         )"
             ;
 
-            var result = await _sqlConnection.ExecuteAsync(sql, entity, _transaction);
+            var result = await _connection.ExecuteAsync(sql, entity, _transaction);
             return result;
         }
 
         public async Task<int> DeleteAsync(Guid id)
         {
             var sql = @"DELETE FROM ""StockArrivals"" WHERE ""Id"" = @Id";
-            var result = await _sqlConnection.ExecuteAsync(sql, new { Id = id }, _transaction);
+            var result = await _connection.ExecuteAsync(sql, new { Id = id }, _transaction);
             return result;
         }
 
         public async Task<IReadOnlyList<StockArrival>> GetAllAsync()
         {
             var sql = @"SELECT * FROM ""StockArrivals""";
-            var result = await _sqlConnection.QueryAsync<StockArrival>(sql);
+            var result = await _connection.QueryAsync<StockArrival>(sql);
             return result.ToList();
         }
 
         public async Task<StockArrival> GetByIdAsync(Guid id)
         {
             var sql = @"SELECT * FROM ""StockArrivals"" WHERE ""Id"" = @Id";
-            var result = await _sqlConnection.QuerySingleOrDefaultAsync<StockArrival>(sql, new { Id = id }, _transaction);
+            var result = await _connection.QuerySingleOrDefaultAsync<StockArrival>(sql, new { Id = id }, _transaction);
             return result;
         }
 
@@ -85,9 +85,9 @@ namespace Observer.Infrastructure.Repositories
                         ""ItemId"" = @ItemId, 
                         ""BoxQuantity"" = @BoxQuantity, 
                         ""ItemsPerBox"" = @ItemsPerBox, 
-                        ""PalletQuantity"" = @PalletQuantity  
+                        ""IsPalletArrival"" = @IsPalletArrival  
                      WHERE ""Id"" = @Id";
-            var result = await _sqlConnection.ExecuteAsync(sql, entity, _transaction);
+            var result = await _connection.ExecuteAsync(sql, entity, _transaction);
             return result;
         }
     }

@@ -8,12 +8,12 @@ namespace Observer.Infrastructure.Repositories
     public class AisleRepository : IAisleRepository
     {
         private readonly IDbTransaction _transaction;
-        private readonly IDbConnection _sqlConnection;
+        private readonly IDbConnection _connection;
 
-        public AisleRepository(IDbConnection sqlConnection, IDbTransaction transaction)
+        public AisleRepository(IDbConnection connection, IDbTransaction transaction)
         {
             _transaction = transaction;
-            _sqlConnection = sqlConnection;
+            _connection = connection;
         }
 
         public async Task<int> AddAsync(Aisle entity)
@@ -23,28 +23,28 @@ namespace Observer.Infrastructure.Repositories
                         VALUES (@Id, @CreatedDate, @LastModified, @CreatedBy, @ModifiedBy, @WarehouseId, @Identifier)"
             ;
 
-            var result = await _sqlConnection.ExecuteAsync(sql, entity, _transaction);
+            var result = await _connection.ExecuteAsync(sql, entity, _transaction);
             return result;
         }
 
         public async Task<int> DeleteAsync(Guid id)
         {
             var sql = @"DELETE FROM ""Aisles"" WHERE ""Id"" = @Id";
-            var result = await _sqlConnection.ExecuteAsync(sql, new { Id = id }, _transaction);
+            var result = await _connection.ExecuteAsync(sql, new { Id = id }, _transaction);
             return result;
         }
 
         public async Task<IReadOnlyList<Aisle>> GetAllAsync()
         {
             var sql = @"SELECT * FROM ""Aisles""";
-            var result = await _sqlConnection.QueryAsync<Aisle>(sql);
+            var result = await _connection.QueryAsync<Aisle>(sql);
             return result.ToList();
         }
 
         public async Task<Aisle> GetByIdAsync(Guid id)
         {
             var sql = @"SELECT * FROM ""Aisles"" WHERE ""Id"" = @Id";
-            var result = await _sqlConnection.QuerySingleOrDefaultAsync<Aisle>(sql, new { Id = id }, _transaction);
+            var result = await _connection.QuerySingleOrDefaultAsync<Aisle>(sql, new { Id = id }, _transaction);
             return result;
         }
 
@@ -54,7 +54,7 @@ namespace Observer.Infrastructure.Repositories
             var sql = @"UPDATE ""Aisles"" 
                      SET ""LastModified"" = @LastModified, ""ModifiedBy"" = @ModifiedBy, ""WarehouseId"" = @WarehouseId, ""Identifier"" = @Identifier 
                      WHERE ""Id"" = @Id";
-            var result = await _sqlConnection.ExecuteAsync(sql, entity, _transaction);
+            var result = await _connection.ExecuteAsync(sql, entity, _transaction);
             return result;
         }
     }

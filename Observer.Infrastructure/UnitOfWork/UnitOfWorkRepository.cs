@@ -16,7 +16,9 @@ namespace Observer.Infrastructure.UnitOfWork
         public IStockRepository Stocks { get; set; }
         public IStockAlertRepository StockAlerts { get; set; }
         public IStockArrivalRepository StockArrivals { get; set; }
+        public IStockPositionRepository StockPositions { get; set; }
         public IStockWithdrawalRepository StockWithdrawals { get; set; }
+        public IStockWithdrawalSourceRepository StockWithdrawalSources { get; set; }
         public IWarehouseRepository Warehouses { get; set; }
         public IWithdrawalRepository Withdrawals { get; set; }
 
@@ -31,7 +33,9 @@ namespace Observer.Infrastructure.UnitOfWork
             Stocks = new StockRepository(connection, transaction);
             StockAlerts = new StockAlertRepository(connection, transaction);
             StockArrivals = new StockArrivalRepository(connection, transaction);
+            StockPositions = new StockPositionRepository(connection, transaction);
             StockWithdrawals = new StockWithdrawalRepository(connection, transaction);
+            StockWithdrawalSources = new StockWithdrawalSourceRepository(connection, transaction);
             Warehouses = new WarehouseRepository(connection, transaction);
             Withdrawals = new WithdrawalRepository(connection, transaction);
         }

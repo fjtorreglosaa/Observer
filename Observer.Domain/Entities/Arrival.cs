@@ -8,7 +8,8 @@
         }
 
         public string Type { get; set; }
-        public Guid? CompanyId { get; set; }
+        public Guid? StoreId { get; set; }
+        public Guid? SupplierId { get; set; }
         public ICollection<StockArrival> StockArrivals { get; set; }
     }
 }

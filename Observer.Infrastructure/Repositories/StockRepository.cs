@@ -8,12 +8,12 @@ namespace Observer.Infrastructure.Repositories
     public class StockRepository : IStockRepository
     {
         private readonly IDbTransaction _transaction;
-        private readonly IDbConnection _sqlConnection;
+        private readonly IDbConnection _connection;
 
-        public StockRepository(IDbConnection sqlConnection, IDbTransaction transaction)
+        public StockRepository(IDbConnection connection, IDbTransaction transaction)
         {
             _transaction = transaction;
-            _sqlConnection = sqlConnection;
+            _connection = connection;
         }
 
         public async Task<int> AddAsync(Stock entity)
@@ -26,9 +26,9 @@ namespace Observer.Infrastructure.Repositories
                             ""LastModified"", 
                             ""CreatedBy"", 
                             ""ModifiedBy"", 
-                            ""CompanyId"", 
+                            ""StoreId"", 
+                            ""Name"", 
                             ""ItemId"", 
-                            ""PositionId"", 
                             ""Quantity"", 
                             ""LastDiscounted"", 
                             ""TimesDiscounted"", 
@@ -41,9 +41,9 @@ namespace Observer.Infrastructure.Repositories
                             @LastModified, 
                             @CreatedBy, 
                             @ModifiedBy, 
-                            @CompanyId, 
+                            @StoreId, 
+                            @Name, 
                             @ItemId, 
-                            @PositionId, 
                             @Quantity, 
                             @LastDiscounted, 
                             @TimesDiscounted, 
@@ -51,28 +51,28 @@ namespace Observer.Infrastructure.Repositories
                         )"
             ;
 
-            var result = await _sqlConnection.ExecuteAsync(sql, entity, _transaction);
+            var result = await _connection.ExecuteAsync(sql, entity, _transaction);
             return result;
         }
 
         public async Task<int> DeleteAsync(Guid id)
         {
             var sql = @"DELETE FROM ""Stocks"" WHERE ""Id"" = @Id";
-            var result = await _sqlConnection.ExecuteAsync(sql, new { Id = id }, _transaction);
+            var result = await _connection.ExecuteAsync(sql, new { Id = id }, _transaction);
             return result;
         }
 
         public async Task<IReadOnlyList<Stock>> GetAllAsync()
         {
             var sql = @"SELECT * FROM ""Stocks""";
-            var result = await _sqlConnection.QueryAsync<Stock>(sql);
+            var result = await _connection.QueryAsync<Stock>(sql);
             return result.ToList();
         }
 
         public async Task<Stock> GetByIdAsync(Guid id)
         {
             var sql = @"SELECT * FROM ""Stocks"" WHERE ""Id"" = @Id";
-            var result = await _sqlConnection.QuerySingleOrDefaultAsync<Stock>(sql, new { Id = id }, _transaction);
+            var result = await _connection.QuerySingleOrDefaultAsync<Stock>(sql, new { Id = id }, _transaction);
             return result;
         }
 
@@ -82,15 +82,15 @@ namespace Observer.Infrastructure.Repositories
             var sql = @"UPDATE ""Stocks"" SET 
                         ""LastModified"" = @LastModified, 
                         ""ModifiedBy"" = @ModifiedBy, 
-                        ""CompanyId"" = @CompanyId, 
+                        ""StoreId"" = @StoreId, 
+                        ""Name"" = @Name, 
                         ""ItemId"" = @ItemId, 
-                        ""PositionId"" = @PositionId, 
                         ""Quantity"" = @Quantity, 
                         ""LastDiscounted"" = @LastDiscounted, 
                         ""TimesDiscounted"" = @TimesDiscounted, 
                         ""DiscountedItemsPerUpdateAvg"" = @DiscountedItemsPerUpdateAvg 
                      WHERE ""Id"" = @Id";
-            var result = await _sqlConnection.ExecuteAsync(sql, entity, _transaction);
+            var result = await _connection.ExecuteAsync(sql, entity, _transaction);
             return result;
         }
     }

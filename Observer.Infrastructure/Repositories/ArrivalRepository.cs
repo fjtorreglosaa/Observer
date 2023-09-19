@@ -8,12 +8,12 @@ namespace Observer.Infrastructure.Repositories
     public class ArrivalRepository : IArrivalRepository
     {
         private readonly IDbTransaction _transaction;
-        private readonly IDbConnection _sqlConnection;
+        private readonly IDbConnection _connection;
 
-        public ArrivalRepository(IDbConnection sqlConnection, IDbTransaction transaction)
+        public ArrivalRepository(IDbConnection connection, IDbTransaction transaction)
         {
             _transaction = transaction;
-            _sqlConnection = sqlConnection;
+            _connection = connection;
         }
 
         public async Task<int> AddAsync(Arrival entity)
@@ -27,7 +27,8 @@ namespace Observer.Infrastructure.Repositories
                             ""CreatedBy"", 
                             ""ModifiedBy"", 
                             ""Type"", 
-                            ""CompanyId""
+                            ""StoreId"",
+                            ""SupplierId""
                         ) 
                         VALUES 
                         (
@@ -37,32 +38,33 @@ namespace Observer.Infrastructure.Repositories
                             @CreatedBy, 
                             @ModifiedBy, 
                             @Type, 
-                            @CompanyId
+                            @StoreId,
+                            @SupplierId
                         )"
             ;
 
-            var result = await _sqlConnection.ExecuteAsync(sql, entity, _transaction);
+            var result = await _connection.ExecuteAsync(sql, entity, _transaction);
             return result;
         }
 
         public async Task<int> DeleteAsync(Guid id)
         {
             var sql = @"DELETE FROM ""Arrivals"" WHERE ""Id"" = @Id";
-            var result = await _sqlConnection.ExecuteAsync(sql, new { Id = id }, _transaction);
+            var result = await _connection.ExecuteAsync(sql, new { Id = id }, _transaction);
             return result;
         }
 
         public async Task<IReadOnlyList<Arrival>> GetAllAsync()
         {
             var sql = @"SELECT * FROM ""Arrivals""";
-            var result = await _sqlConnection.QueryAsync<Arrival>(sql);
+            var result = await _connection.QueryAsync<Arrival>(sql);
             return result.ToList();
         }
 
         public async Task<Arrival> GetByIdAsync(Guid id)
         {
             var sql = @"SELECT * FROM ""Arrivals"" WHERE ""Id"" = @Id";
-            var result = await _sqlConnection.QuerySingleOrDefaultAsync<Arrival>(sql, new { Id = id }, _transaction);
+            var result = await _connection.QuerySingleOrDefaultAsync<Arrival>(sql, new { Id = id }, _transaction);
             return result;
         }
 
@@ -74,9 +76,10 @@ namespace Observer.Infrastructure.Repositories
                         ""LastModified"" = @LastModified, 
                         ""ModifiedBy"" = @ModifiedBy, 
                         ""Type"" = @Type, 
-                        ""CompanyId"" = @CompanyId
+                        ""StoreId"" = @StoreId,
+                        ""SupplierId"" = @SupplierId
                      WHERE ""Id"" = @Id";
-            var result = await _sqlConnection.ExecuteAsync(sql, entity, _transaction);
+            var result = await _connection.ExecuteAsync(sql, entity, _transaction);
             return result;
         }
     }

@@ -9,6 +9,6 @@
         public Guid? ItemId { get; set; }
         public int? BoxQuantity { get; set; }
         public int? ItemsPerBox { get; set; }
-        public int? PalletQuantity { get; set; }
+        public bool? IsPalletArrival { get; set; }
     }
 }

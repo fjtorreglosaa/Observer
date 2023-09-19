@@ -1,10 +1,12 @@
-﻿namespace Observer.Sandbox
+﻿using Observer.Sandbox.Utilities;
+
+namespace Observer.Sandbox
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-
+            EnvironmentSetup.Setup();
         }
     }
 }
