@@ -1,4 +1,6 @@
-﻿using Observer.Sandbox.Utilities;
+﻿using MediatR;
+using Observer.Application.Features.StockFeatures.Queries.GetStockCount;
+using Observer.Sandbox.Utilities;
 
 namespace Observer.Sandbox
 {
@@ -6,7 +8,7 @@ namespace Observer.Sandbox
     {
         public static void Main(string[] args)
         {
-            EnvironmentSetup.Setup();
+
         }
     }
 }

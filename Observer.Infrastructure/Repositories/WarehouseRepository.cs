@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using Azure.Core;
+using Dapper;
 using Observer.Domain.Entities;
 using Observer.Infrastructure.Repositories.Contracts;
 using System.Data;
@@ -59,6 +60,13 @@ namespace Observer.Infrastructure.Repositories
         public async Task<IReadOnlyList<Warehouse>> GetAllAsync()
         {
             var sql = @"SELECT * FROM ""Warehouses""";
+            var result = await _connection.QueryAsync<Warehouse>(sql);
+            return result.ToList();
+        }
+
+        public async Task<IReadOnlyList<Warehouse>> GetWarehouseByIds(string warehouseIds)
+        {
+            var sql = $@"SELECT * FROM ""Warehouses"" WHERE Id IN {warehouseIds}";
             var result = await _connection.QueryAsync<Warehouse>(sql);
             return result.ToList();
         }

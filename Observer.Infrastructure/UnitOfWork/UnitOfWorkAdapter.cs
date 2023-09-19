@@ -1,4 +1,5 @@
 ﻿using Npgsql;
+using Observer.Infrastructure.Repositories.Contracts;
 using Observer.Infrastructure.UnitOfWork.Contracts;
 using System.Data;
 

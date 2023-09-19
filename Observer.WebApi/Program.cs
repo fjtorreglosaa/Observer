@@ -1,4 +1,5 @@
 using FluentValidation;
+using Observer.Application.Features.StockFeatures.Queries.GetStockCount;
 using Observer.Application.Features.WarehouseFeatures.Commands.CreateWarehouse;
 using Observer.Application.Features.WarehouseFeatures.Queries.GetAllWarehouses;
 using Observer.Application.Utilities.Mappings;
@@ -17,6 +18,7 @@ builder.Services.AddScoped<IValidator<CreateWarehouseCommand>, CreateWarehouseCo
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(CreateWarehouseCommandHandler)));
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(GetAllWarehousesQueryHandler)));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(GetStockCountQueryHandler)));
 
 builder.Services.AddAutoMapper(typeof(MappingProfiles));
 

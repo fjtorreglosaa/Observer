@@ -19,4 +19,8 @@
     <ProjectReference Include="..\Observer.Infrastructure\Observer.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Listeners\Observers\" />
+  </ItemGroup>
+
 </Project>
