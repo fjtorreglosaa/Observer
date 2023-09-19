@@ -261,6 +261,16 @@ namespace Observer.Sandbox.Seeders.StockPositionSeeder
                 StockId = StringConstans.SAW_STOCK,
                 PositionId = Converter.ToGuid(25)
             };
+            var CHAIN_STOCK_POSITION_02 = new StockPosition
+            {
+                Id = Guid.NewGuid(),
+                CreatedDate = DateTime.Now,
+                LastModified = DateTime.Now,
+                CreatedBy = StringConstans.MAIN_USER_ID,
+                ModifiedBy = StringConstans.MAIN_USER_ID,
+                StockId = StringConstans.CHAIN_STOCK_02,
+                PositionId = Converter.ToGuid(26)
+            };
 
             stockPositionRepository.AddAsync(CHAIN_STOCK_POSITION).Wait();
             stockPositionRepository.AddAsync(ADHESIVES_STOCK_POSITION).Wait();
@@ -287,6 +297,7 @@ namespace Observer.Sandbox.Seeders.StockPositionSeeder
             stockPositionRepository.AddAsync(WIRES_STOCK_POSITION).Wait();
             stockPositionRepository.AddAsync(GLUE_STOCK_POSITION).Wait();
             stockPositionRepository.AddAsync(SAW_STOCK_POSITION).Wait();
+            stockPositionRepository.AddAsync(CHAIN_STOCK_POSITION_02).Wait();
         }
     }
 }

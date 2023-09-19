@@ -46,6 +46,7 @@
         public static Guid ARRIVAL_PRODUCTS_05 = new Guid("78CA9CBC-56C5-4890-B989-FBFCEFF70DFF");
 
         public static Guid CHAIN_STOCK = new Guid("8E14ACD2-203B-4DC7-8660-84EF799EEBAC");
+        public static Guid CHAIN_STOCK_02 = new Guid("5311F4AD-098E-425B-8DCF-297F8F6D4E4A");
         public static Guid ADHESIVES_STOCK = new Guid("171FB316-04DB-4EA7-BEB3-0E7108410CC3");
         public static Guid WRENCH_STOCK = new Guid("94D050F6-B1D3-4C3C-A4E7-F0F1594011EF");
         public static Guid TAP_STOCK = new Guid("A4AF3ECE-CB92-4C60-8849-E00EAB63D276");
@@ -72,6 +73,7 @@
         public static Guid SAW_STOCK = new Guid("6128CDB1-FCED-4050-B960-DFFDFC503486");
 
         public static Guid CHAIN_STOCK_ARRIVAL = new Guid("96DA69CD-EBDC-4AA7-AFCA-41B4BA77D292");
+        public static Guid CHAIN_STOCK_ARRIVAL_02 = new Guid("16209CA4-C6C8-42CB-A6E5-05E7F95BA1E1");
         public static Guid ADHESIVES_STOCK_ARRIVAL = new Guid("98EBB87D-AFAA-4986-8550-F8C10C0C0F45");
         public static Guid WRENCH_STOCK_ARRIVAL = new Guid("42218D23-3CE1-4CA0-AE6B-D1F714157B9C");
         public static Guid TAP_STOCK_ARRIVAL = new Guid("696C1D16-222B-4203-9872-AF352225855F");

@@ -120,6 +120,7 @@ CREATE TABLE "Stocks"
     "StoreId" uuid,
     "ItemId" uuid,
     "Quantity" int,
+    "MinimumStock" int,
     "LastDiscounted" timestamp without time zone,
     "TimesDiscounted" int,
     "DiscountedItemsPerUpdateAvg" numeric,

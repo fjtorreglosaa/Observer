@@ -10,9 +10,9 @@ namespace Observer.WebApi.Controllers
     public class StockController : AbstractController
     {
         [HttpGet]
-        public async Task<IActionResult> GetStockCount()
+        public async Task<IActionResult> GetStockCount([FromQuery] List<Guid?> storeIds)
         {
-            var result = await Mediator.Send(new GetStockCountQuery());
+            var result = await Mediator.Send(new GetStockCountQuery { StoreIds = storeIds });
 
             return Ok(result);
         }

@@ -30,6 +30,7 @@ namespace Observer.Infrastructure.Repositories
                             ""Name"", 
                             ""ItemId"", 
                             ""Quantity"", 
+                            ""MinimumStock"", 
                             ""LastDiscounted"", 
                             ""TimesDiscounted"", 
                             ""DiscountedItemsPerUpdateAvg""
@@ -45,6 +46,7 @@ namespace Observer.Infrastructure.Repositories
                             @Name, 
                             @ItemId, 
                             @Quantity, 
+                            @MinimumStock, 
                             @LastDiscounted, 
                             @TimesDiscounted, 
                             @DiscountedItemsPerUpdateAvg
@@ -86,12 +88,20 @@ namespace Observer.Infrastructure.Repositories
                         ""Name"" = @Name, 
                         ""ItemId"" = @ItemId, 
                         ""Quantity"" = @Quantity, 
+                        ""MinimumStock"" = @MinimumStock, 
                         ""LastDiscounted"" = @LastDiscounted, 
                         ""TimesDiscounted"" = @TimesDiscounted, 
                         ""DiscountedItemsPerUpdateAvg"" = @DiscountedItemsPerUpdateAvg 
                      WHERE ""Id"" = @Id";
             var result = await _connection.ExecuteAsync(sql, entity, _transaction);
             return result;
+        }
+
+        public async Task<IReadOnlyList<Stock>> GetStockByStoreIdsAsync(string ids)
+        {
+            var sql = $@"SELECT * FROM ""Stocks"" WHERE ""StoreId"" IN {ids}";
+            var result = await _connection.QueryAsync<Stock>(sql); ;
+            return result.ToList();
         }
     }
 }

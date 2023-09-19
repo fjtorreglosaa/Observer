@@ -20,7 +20,7 @@ namespace Observer.Sandbox.Seeders.AlertSeeder
                 ModifiedBy = StringConstans.MAIN_USER_ID,
                 Name = "LOW STOCK",
                 Description = "Stock alert when there are at least 10 units of a product left in stock",
-                Type = "AUTO"
+                Type = "DAILY"
             };
 
             var STOCK_ROTATION_ALERT = new Alert
@@ -31,7 +31,7 @@ namespace Observer.Sandbox.Seeders.AlertSeeder
                 CreatedBy = StringConstans.MAIN_USER_ID,
                 ModifiedBy = StringConstans.MAIN_USER_ID,
                 Name = "LOW ROTATION",
-                Description = "Stock alert when an item has not been discounted for 7 days",
+                Description = "Stock alert when an item has not been discounted for more than 15 days",
                 Type = "WEEKLY"
             };
 

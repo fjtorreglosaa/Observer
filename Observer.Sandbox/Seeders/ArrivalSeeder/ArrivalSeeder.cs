@@ -20,6 +20,7 @@ namespace Observer.Sandbox.Seeders.ArrivalSeeder
                 CreatedBy = StringConstans.MAIN_USER_ID,
                 ModifiedBy = StringConstans.MAIN_USER_ID,
                 SupplierId = StringConstans.SUPPLIER_01,
+                StoreId = StringConstans.MAIN_STORE_ID,
                 Type = "STANDARD"
             };
             var ARRIVAL_PRODUCTS_WAR_01 = new Arrival
@@ -30,6 +31,7 @@ namespace Observer.Sandbox.Seeders.ArrivalSeeder
                 CreatedBy = StringConstans.MAIN_USER_ID,
                 ModifiedBy = StringConstans.MAIN_USER_ID,
                 SupplierId = StringConstans.SUPPLIER_02,
+                StoreId = StringConstans.MAIN_STORE_ID,
                 Type = "WARRANTY"
             };
             var ARRIVAL_PRODUCTS_STF_01 = new Arrival
@@ -40,6 +42,7 @@ namespace Observer.Sandbox.Seeders.ArrivalSeeder
                 CreatedBy = StringConstans.MAIN_USER_ID,
                 ModifiedBy = StringConstans.MAIN_USER_ID,
                 SupplierId = StringConstans.SUPPLIER_03,
+                StoreId = StringConstans.MAIN_STORE_ID,
                 Type = "STOCK TRANSFER"
             };
             var ARRIVAL_PRODUCTS_STD_02 = new Arrival
@@ -50,6 +53,7 @@ namespace Observer.Sandbox.Seeders.ArrivalSeeder
                 CreatedBy = StringConstans.MAIN_USER_ID,
                 ModifiedBy = StringConstans.MAIN_USER_ID,
                 SupplierId = StringConstans.SUPPLIER_04,
+                StoreId = StringConstans.MAIN_STORE_ID,
                 Type = "STANDARD"
             };
             var ARRIVAL_PRODUCTS_STD_03 = new Arrival
@@ -60,6 +64,7 @@ namespace Observer.Sandbox.Seeders.ArrivalSeeder
                 CreatedBy = StringConstans.MAIN_USER_ID,
                 ModifiedBy = StringConstans.MAIN_USER_ID,
                 SupplierId = StringConstans.SUPPLIER_05,
+                StoreId = StringConstans.MAIN_STORE_ID,
                 Type = "STANDARD"
             };
             #endregion

@@ -14,6 +14,7 @@
         public Guid? StoreId { get; set; }
         public Guid? ItemId { get; set; }
         public int? Quantity { get; set; }
+        public int? MinimumStock { get; set; }
         public DateTime? LastDiscounted { get; set; }
         public int? TimesDiscounted { get; set; }
         public decimal? DiscountedItemsPerUpdateAvg { get; set; }

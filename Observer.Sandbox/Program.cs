@@ -8,7 +8,7 @@ namespace Observer.Sandbox
     {
         public static void Main(string[] args)
         {
-
+            EnvironmentSetup.Setup();
         }
     }
 }

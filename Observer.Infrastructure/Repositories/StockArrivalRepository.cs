@@ -90,5 +90,6 @@ namespace Observer.Infrastructure.Repositories
             var result = await _connection.ExecuteAsync(sql, entity, _transaction);
             return result;
         }
+
     }
 }

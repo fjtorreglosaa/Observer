@@ -51,6 +51,20 @@ namespace Observer.Sandbox.Seeders.StockArrivalSeeder
                 StockId = StringConstans.CHAIN_STOCK,
                 ItemId = CHAIN
             };
+            var CHAIN_STOCK_ARRIVAL_02 = new StockArrival
+            {
+                Id = StringConstans.CHAIN_STOCK_ARRIVAL_02,
+                CreatedDate = DateTime.Now,
+                LastModified = DateTime.Now,
+                CreatedBy = StringConstans.MAIN_USER_ID,
+                ModifiedBy = StringConstans.MAIN_USER_ID,
+                BoxQuantity = 25,
+                ItemsPerBox = 10,
+                IsPalletArrival = false,
+                ArrivalId = StringConstans.ARRIVAL_PRODUCTS_05,
+                StockId = StringConstans.CHAIN_STOCK_02,
+                ItemId = CHAIN
+            };
             var ADHESIVES_STOCK_ARRIVAL = new StockArrival
             {
                 Id = StringConstans.ADHESIVES_STOCK_ARRIVAL,
@@ -413,6 +427,7 @@ namespace Observer.Sandbox.Seeders.StockArrivalSeeder
             stockArrivalRepository.AddAsync(HINGES_STOCK_ARRIVAL).Wait();
             stockArrivalRepository.AddAsync(WIRES_STOCK_ARRIVAL).Wait();
             stockArrivalRepository.AddAsync(GLUE_STOCK_ARRIVAL).Wait();
+            stockArrivalRepository.AddAsync(CHAIN_STOCK_ARRIVAL_02).Wait();
         }
     }
 }
