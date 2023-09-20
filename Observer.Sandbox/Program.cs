@@ -1,6 +1,5 @@
-﻿using MediatR;
-using Observer.Application.Features.StockFeatures.Queries.GetStockCount;
-using Observer.Sandbox.Utilities;
+﻿using Observer.Application.Publishers;
+using Observer.Application.Publishers.Subscribers;
 
 namespace Observer.Sandbox
 {
@@ -8,7 +7,16 @@ namespace Observer.Sandbox
     {
         public static void Main(string[] args)
         {
-            EnvironmentSetup.Setup();
+            //var publisher = new AlertPublisher();
+
+            //var subscriber1 = new LowRotationAlertSubscriber();
+            //var subscriber2 = new PartialStockAlertSubscriber();
+            //var subscriber3 = new TotalStockAlertSubscriber();
+
+            //publisher.Attach(subscriber1);
+            //publisher.Attach(subscriber3);
+            //publisher.Attach(subscriber2);
+
         }
     }
 }

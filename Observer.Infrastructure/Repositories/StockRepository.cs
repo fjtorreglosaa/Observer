@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Observer.Domain.Entities;
+using Observer.Domain.Models;
 using Observer.Infrastructure.Repositories.Contracts;
 using System.Data;
 
@@ -101,6 +102,50 @@ namespace Observer.Infrastructure.Repositories
         {
             var sql = $@"SELECT * FROM ""Stocks"" WHERE ""StoreId"" IN {ids}";
             var result = await _connection.QueryAsync<Stock>(sql); ;
+            return result.ToList();
+        }
+
+        public async Task<IReadOnlyList<Stock>> GetStockByItemIdsAsync(string ids)
+        {
+            var sql = $@"SELECT * FROM ""Stocks"" WHERE ""ItemId"" IN {ids}";
+            var result = await _connection.QueryAsync<Stock>(sql); ;
+            return result.ToList();
+        }
+
+        public async Task<IReadOnlyList<Stock>> GetStockByStoreIdAsync(Guid storeId)
+        {
+            var sql = $@"SELECT * FROM ""Stocks"" WHERE ""StoreId"" = @StoreId";
+            var result = await _connection.QueryAsync<Stock>(sql, new { StoreId = storeId }, _transaction);
+            return result.ToList();
+        }
+
+        public async Task<IReadOnlyList<StockInPlace>> GetStockInPlace(Guid storeId)
+        {
+            var sql = $@"select 
+	                        s.""ItemId"" as ""ItemId"",
+	                        s.""Id"" as ""StockId"",
+	                        p.""Id"" as ""PositionId"",
+	                        concat
+                                (w.""Identifier"",' - ', a.""Identifier"",' - ', b.""Identifier"",' - ',l.""Identifier"",' - ',p.""Identifier"") 
+                                as ""Identifier"",
+	                        s.""LastDiscounted"" as ""LastDiscounted""
+                        from ""Warehouses"" w 
+                        inner join ""Aisles"" a on w.""Id"" = a.""WarehouseId""
+                        inner join ""Bays"" b on a.""Id"" = b.""AisleId"" 
+                        inner join ""Levels"" l on b.""Id"" = l.""BayId"" 
+                        inner join ""Positions"" p on l.""Id"" = p.""LevelId"" 
+                        inner join ""StockPositions"" sp on p.""Id"" = sp.""PositionId"" 
+                        inner join ""Stocks"" s on sp.""StockId"" = s.""Id"" 
+                        where s.""StoreId"" = @StoreId";
+
+            var result = await _connection.QueryAsync<StockInPlace>(sql, new { StoreId = storeId }, _transaction);
+            return result.ToList();
+        }
+
+        public async Task<IReadOnlyList<Stock>> GetStockByItemIdAsync(Guid itemId)
+        {
+            var sql = $@"SELECT * FROM ""Stocks"" WHERE ""ItemId"" = @ItemId";
+            var result = await _connection.QueryAsync<Stock>(sql, new { ItemId = itemId }, _transaction);
             return result.ToList();
         }
     }
