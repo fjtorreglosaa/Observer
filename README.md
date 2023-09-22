@@ -14,8 +14,9 @@ Use the following commands to setup the environment
 To find out which port to connect to in PgAdmin, use the following command:
 - docker inspect PostgresContainerId
 
-![image](https://github.com/fjtorreglosaa/Observer/assets/59806344/3bdb6ba6-af55-4707-921a-488db73cb628)
+![image](https://github.com/fjtorreglosaa/Observer/assets/59806344/2499fc27-7c62-42a7-9462-62fda959263d)
 
+![image](https://github.com/fjtorreglosaa/Observer/assets/59806344/a051df38-bd8c-4293-b726-60182efc5f8a)
 
 Initialization with network
 
