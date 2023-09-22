@@ -11,6 +11,12 @@ Use the following commands to setup the environment
 - Add PgAdmin to the Network: docker network connect Postgres_Network PostgresContainerId
 - Add Postgres to the Network: docker network connect Postgres_Network PgAdminContainerId
 
+To find out which port to connect to in PgAdmin, use the following command:
+- docker inspect PostgresContainerId
+
+![image](https://github.com/fjtorreglosaa/Observer/assets/59806344/3bdb6ba6-af55-4707-921a-488db73cb628)
+
+
 Initialization with network
 
 - Postgres Container: docker container run --network Postgres_Network --name TestServer_Postgres -p 5432:5432 -v ObserverData:/var/lib/postgresql/data -e POSTGRES_PASSWORD=Password1* -d postgres:16.0-alpine3.18
